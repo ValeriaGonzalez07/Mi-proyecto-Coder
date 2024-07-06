@@ -16,9 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import inicio
+from inicio.views import inicio
+from django.urls import path
+from inicio.views import MainModelListView, MainModelDetailView, MainModelCreateView, MainModelUpdateView, MainModelDeleteView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', inicio)
+    path('', MainModelListView.as_view(), name='mainmodel_list'),
+    path('<int:pk>/', MainModelDetailView.as_view(), name='mainmodel_detail'),
+    path('new/', MainModelCreateView.as_view(), name='mainmodel_create'),
+    path('<int:pk>/edit/', MainModelUpdateView.as_view(), name='mainmodel_edit'),
+    path('<int:pk>/delete/', MainModelDeleteView.as_view(), name= 'mainmodel_delete'),
 ]
